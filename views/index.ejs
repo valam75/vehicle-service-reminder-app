@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Service Reminder</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vehicle Service Reminder Dashboard</h1>
+
+        <table>
+            <tr>
+                <th>Owner</th>
+                <th>Vehicle</th>
+                <th>Service Date</th>
+                <th>Insurance Renewal</th>
+                <th>Pollution Check</th>
+            </tr>
+
+            <% vehicles.forEach(vehicle => { %>
+                <tr>
+                    <td><%= vehicle.owner %></td>
+                    <td><%= vehicle.vehicle %></td>
+                    <td><%= vehicle.serviceDate %></td>
+                    <td><%= vehicle.insuranceRenewal %></td>
+                    <td><%= vehicle.pollutionCheck %></td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>
