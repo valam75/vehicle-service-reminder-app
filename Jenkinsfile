@@ -3,12 +3,11 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'yourdockerhubusername/vehicle-service-reminder-app'
-        APP_SERVER = 'ubuntu@<app-server-ip>'
+        APP_SERVER = 'ubuntu@YOUR_APP_SERVER_IP'
     }
 
     stages {
-
-        stage('Clone Code') {
+        stage('Clone Source Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/yourusername/vehicle-service-reminder-app.git'
             }
@@ -26,16 +25,21 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
+        stage('Docker Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
-                    sh 'docker push $DOCKER_IMAGE:$BUILD_NUMBER'
                 }
             }
         }
 
-        stage('Deploy to App Server') {
+        stage('Push Docker Image') {
+            steps {
+                sh 'docker push $DOCKER_IMAGE:$BUILD_NUMBER'
+            }
+        }
+
+        stage('Deploy Application') {
             steps {
                 sh '''
                 ssh $APP_SERVER "docker stop vehicle-app || true"
