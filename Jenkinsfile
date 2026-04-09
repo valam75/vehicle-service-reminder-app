@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'valam75/vehicle-service-reminder-app'
-        APP_SERVER = 'ubuntu@107.20.84.14'
+        APP_SERVER = 'ubuntu@54.90.214.135'
         CONTAINER_NAME = 'vehicle-app'
     }
 
